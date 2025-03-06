@@ -35,6 +35,27 @@
 
 <body>
 
+  <!-- Your website content -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.body.addEventListener("click", function (event) {
+        let link = event.target.closest("a"); // Ensures only links are tracked
+        if (link && link.href) {
+          let linkText = link.textContent.trim() || "Unknown Link"; 
+          let linkCategory = link.classList.contains("outbound") ? "Outbound" : "Internal"; 
+          
+          gtag("event", "click", {
+            "event_category": linkCategory,  
+            "event_label": linkText,  
+            "value": 1,  
+            "destination_url": link.href,  
+            "target": link.target || "_self"  
+          });
+        }
+      });
+    });
+  </script>
+  
   <!-- Header Section Start -->
   <header class="hero-area">
     <div class="overlay">
